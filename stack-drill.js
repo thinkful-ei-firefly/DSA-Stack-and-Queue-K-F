@@ -118,49 +118,34 @@ console.log(matchingExpression('345+("434")+34'));
 console.log(matchingExpression('345+(434")+34'));*/
 
 
-
 function sort(list){
   let temp = new Stack()
   let num = list.pop()
-  while(num !== null){
-    if (stackPeek(list) === null){
-      temp.push(num)
-      num = null
-    } else if (num < stackPeek(list)){
-      console.log(num + '  ' + stackPeek(list))
+  let flagReady = false;
+  while(!flagReady){
+    if (isEmpty(temp)){
       temp.push(num)
       num = list.pop()
-    } else {
-      console.log(num + '  ' + stackPeek(list))
-      let x = list.pop()
-      temp.push(x)
+    }else{
+      if(num<stackPeek(temp)){
+        temp.push(num)
+        if (!isEmpty(list)) num = list.pop()
+        else num = null
+      }else{
+        let aux = temp.pop()
+        list.push(aux)
+      }
     }
+    if(num === null) flagReady=true
   }
-  num = temp.pop()
-  while(num !== null){
-    if (stackPeek(temp) === null){
-      list.push(num)
-      num = null
-    } else if (num < stackPeek(temp)){
-      console.log(num + '  ' + stackPeek(temp))
-      list.push(num)
-      num = temp.pop()
-    } else {
-      console.log(num + '  ' + stackPeek(temp))
-      let x = temp.pop()
-      list.push(x)
-    }
-  }
+  return temp;
 }
 let numStack = new Stack()
+numStack.push(2)
 numStack.push(6)
 numStack.push(3)
-numStack.push(2)
-numStack.push(5)
-sort(numStack)
-display(numStack)
-
-
+numStack.push(1)
+display(sort(numStack))
 
 let starTrekQ = new Queue()
 function queuePeek(list){
