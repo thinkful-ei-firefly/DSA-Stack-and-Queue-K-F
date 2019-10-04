@@ -145,7 +145,7 @@ numStack.push(2)
 numStack.push(6)
 numStack.push(3)
 numStack.push(1)
-display(sort(numStack))
+//display(sort(numStack))
 
 let starTrekQ = new Queue()
 function queuePeek(list){
@@ -172,3 +172,31 @@ function drill6(){
 }
 drill6()
 //display(starTrekQ)
+
+//stack queue
+function getFirstInStack(list){
+  let temp = new Stack()
+  let item = list.pop()
+  while(!isEmpty(list)){
+    temp.push(item)
+    item = list.pop()
+  }
+  let returnItem = item
+  item = temp.pop()
+  while(!isEmpty(temp)){
+    list.push(item)
+    item = temp.pop()
+  }
+  list.push(item)
+  return returnItem
+}
+
+let newStack = new Stack()
+newStack.push('a')
+newStack.push('b')
+newStack.push('c')
+newStack.push('d')
+newStack.push('e')
+//display(newStack)
+//console.log("First item is " + getFirstInStack(newStack))
+//display(newStack)
