@@ -62,8 +62,34 @@ function isPalindrome(str){
   return true
 }
 
-console.log(isPalindrome('dad'))
-console.log(isPalindrome('A man, a plan, a canal: Panama'))
-console.log(isPalindrome('1001'))
-console.log(isPalindrome('Tauhida'))
+//console.log(isPalindrome('dad'))
+//console.log(isPalindrome('A man, a plan, a canal: Panama'))
+//console.log(isPalindrome('1001'))
+//console.log(isPalindrome('Tauhida'))
+
+let starTrekQ = new Queue()
+function queuePeek(list){
+  let node = list.first
+  if(node === null)
+    return 'Queue is empty'
+  else
+    return node.value
+}
+function isEmptyQ(list){
+  let node = list.first
+  if(node === null)
+    return true
+  else
+    return false
+}
+
+function drill6(){
+  starTrekQ.enqueue('Kirk')
+  starTrekQ.enqueue('Spock')
+  starTrekQ.enqueue('Uhura')
+  starTrekQ.enqueue('Sulu')
+  starTrekQ.enqueue('Checkov')
+}
+drill6()
+display(starTrekQ)
 
