@@ -238,7 +238,7 @@ function dancePairing(genre, name){
 
 }
 
-dancePairing('F', 'Jane');
+/*dancePairing('F', 'Jane');
 dancePairing('M', 'Frank');
 dancePairing('M', 'John');
 dancePairing('M', 'Sherlock');
@@ -250,3 +250,32 @@ if(!isEmptyQ(tempMen))
   console.log(`There are ${length(tempMen)} male dancers waiting to dance`);
 if(!isEmptyQ(tempWomen))
   console.log(`There are ${length(tempWomen)} female dancers waiting to dance`);
+*/
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+let bankQueue = new Queue()
+function bank(){
+  let person = bankQueue.dequeue()
+  if (getRandomInt(100) < 25){
+    console.log(`${person}'s paperwork was not done, end of line`)
+    bankQueue.enqueue(person)
+  } else {
+    console.log(`${person}'s was checked out`)
+  }
+}
+
+bankQueue.enqueue('Sally')
+console.log('Sally got in line')
+bankQueue.enqueue('Tom')
+console.log('Tom got in line')
+bankQueue.enqueue('Jeff')
+console.log('Jeff got in line')
+bank()
+bank()
+bankQueue.enqueue('Edgar')
+console.log('Edgar got in line')
+bank()
+bank()
+
