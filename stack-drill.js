@@ -70,32 +70,52 @@ function isPalindrome(str){
 
 
 function matchingExpression(expression){
-  let stack = new Stack();
+  const open = '([{"\''
+  const close = ')]}"\''
+  let stackOpen = new Stack()
+  let stackClose = new Stack()
   for (let i = 0; i < expression.length; i++){
-    if (expression[i]==='(' || expression[i]===')')
-      stack.push(expression[i])
+    let c = expression[i]
+    if(open.includes(c))
+      stackOpen.push(c)
   }
-  //display(stack)
-  let lastParenthesis = stackPeek(stack);
-  //console.log(lastParenthesis);
-  for (let i = 0; i < expression.length-1; i++){
-    if (expression[i]==='('){
-      stack.pop()
+  for (let i = 0; i < expression.length; i++){
+    let c = expression[expression.length - (i + 1)]
+    if(close.includes(c)){
+      if ((c==="'" || c==='"')){
+        if(expression.indexOf(c) !== expression.lastIndexOf(c))
+          stackClose.push(c)
+      }
+      else
+        stackClose.push(c)
     }
-      //stack.pop()
   }
-  display(stack)
-  if (lastParenthesis === ')' && stackPeek(stack) === '(') return 'The expression is matching'
-  else if (lastParenthesis !== ')' && stackPeek(stack) !== '(') return 'The expression is missing a "(" and ")"'
-  else if (lastParenthesis !== ')') return 'The expression is missing a "("'
-  else return 'The expression is missing a ")"'
-
+  while(stackPeek(stackOpen) !== false){
+    let expOpen = stackOpen.pop();
+    let indexOpen = open.indexOf(expOpen)
+    if (!isEmpty(stackClose)){
+      let expClose = stackClose.pop();
+      if (expClose !== close[indexOpen])
+        return `stating that you were expecting a ${close[indexOpen]} but found a ${expClose}`
+    }else{
+      return `you are missing  ${close[indexOpen]}`
+    }
+  }
+  while(stackPeek(stackClose) !== false){
+    let expClose = stackClose.pop();
+    let indexClose = close.indexOf(expClose)
+    if (isEmpty(stackOpen)){
+      return `you are missing  ${open[indexClose]}`
+    }
+  }
+  return 'valid expression'
 }
 
-//console.log(matchingExpression('345+(434)+34'));
-//console.log(matchingExpression('345+{434)+34'));
-/*console.log(matchingExpression('345+(434}+34'));
-console.log(matchingExpression('345+{434}+34'));*/
+console.log(matchingExpression('{345+(434]+34}+34'));
+console.log(matchingExpression('345+{434)+34'));
+console.log(matchingExpression('345+(434}+34'));
+console.log(matchingExpression('345+("434")+34'));
+console.log(matchingExpression('345+(434")+34'));
 
 function matching(expression){
   let stack = new Stack()
@@ -122,9 +142,9 @@ function matching(expression){
   else
     return 'open expression. extra ")"'
 }
-console.log(matching('(something)'))
+/*console.log(matching('(something)'))
 console.log(matching('something)'))
-console.log(matching('(something'))
+console.log(matching('(something'))*/
 
 
 
