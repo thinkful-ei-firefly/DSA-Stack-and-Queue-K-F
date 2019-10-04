@@ -162,6 +162,19 @@ function isEmptyQ(list){
   else
     return false
 }
+function length(list){
+  let node = list.first
+  if(node === null)
+    return 0
+  else{
+    let count = 1
+    while(node.next!==null){
+      node = node.next;
+      count++
+    }
+    return count;
+  }
+}
 
 function drill6(){
   starTrekQ.enqueue('Kirk')
@@ -200,3 +213,40 @@ newStack.push('e')
 //display(newStack)
 //console.log("First item is " + getFirstInStack(newStack))
 //display(newStack)
+
+
+let tempMen = new Queue()
+let tempWomen = new Queue()
+
+function dancePairing(genre, name){
+  let temp;
+  if (genre==='F'){
+    if(!isEmptyQ(tempMen)){
+      temp = tempMen.dequeue();
+      console.log(`Female dancer is ${name}, and the male dancer is ${temp}`);
+    }else{
+      tempWomen.enqueue(name);
+    }
+  }else{
+    if(!isEmptyQ(tempWomen)){
+      temp = tempWomen.dequeue();
+      console.log(`Female dancer is ${temp}, and the male dancer is ${name}`);
+    }else{
+      tempMen.enqueue(name);
+    }
+  }
+
+}
+
+dancePairing('F', 'Jane');
+dancePairing('M', 'Frank');
+dancePairing('M', 'John');
+dancePairing('M', 'Sherlock');
+dancePairing('F', 'Madonna');
+dancePairing('M', 'David');
+dancePairing('M', 'Christopher');
+dancePairing('F', 'Beyonce');
+if(!isEmptyQ(tempMen))
+  console.log(`There are ${length(tempMen)} male dancers waiting to dance`);
+if(!isEmptyQ(tempWomen))
+  console.log(`There are ${length(tempWomen)} female dancers waiting to dance`);

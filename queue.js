@@ -33,7 +33,7 @@ class Queue {
     }
     const node = this.first;
     this.first = this.first.next;
-    this.first.prev = null
+    if (this.first) this.first.prev = null
     //if this is the last item in the queue
     if (node === this.last) {
       this.last = null;
