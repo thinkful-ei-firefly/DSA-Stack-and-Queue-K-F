@@ -17,8 +17,8 @@ function display(list){
 
 function stackPeek(list){
   let node = list.top
-  if(!node)
-    return false
+  if(node === null)
+    return null
   else
     return node.value
 }
@@ -111,40 +111,54 @@ function matchingExpression(expression){
   return 'valid expression'
 }
 
-console.log(matchingExpression('{345+(434]+34}+34'));
+/*console.log(matchingExpression('{345+(434]+34}+34'));
 console.log(matchingExpression('345+{434)+34'));
 console.log(matchingExpression('345+(434}+34'));
 console.log(matchingExpression('345+("434")+34'));
-console.log(matchingExpression('345+(434")+34'));
+console.log(matchingExpression('345+(434")+34'));*/
 
-function matching(expression){
-  let stack = new Stack()
-  for (let i = 0; i < expression.length; i++){
-    let c = expression[i]
-    if(c === '(' || c === ')')
-      stack.push(c)
+
+
+function sort(list){
+  let temp = new Stack()
+  let num = list.pop()
+  while(num !== null){
+    if (stackPeek(list) === null){
+      temp.push(num)
+      num = null
+    } else if (num < stackPeek(list)){
+      console.log(num + '  ' + stackPeek(list))
+      temp.push(num)
+      num = list.pop()
+    } else {
+      console.log(num + '  ' + stackPeek(list))
+      let x = list.pop()
+      temp.push(x)
+    }
   }
-
-  let openParen = false
-
-  let value
-  while(stackPeek(stack) !== false){
-    value = stack.pop()
-    if (value === ')')
-      openParen = true;
-    else if (value === '(' && openParen === true)
-      openParen = false
-    else if (value === '(' && openParen === false)
-      return 'open expression. expected ")"'
+  num = temp.pop()
+  while(num !== null){
+    if (stackPeek(temp) === null){
+      list.push(num)
+      num = null
+    } else if (num < stackPeek(temp)){
+      console.log(num + '  ' + stackPeek(temp))
+      list.push(num)
+      num = temp.pop()
+    } else {
+      console.log(num + '  ' + stackPeek(temp))
+      let x = temp.pop()
+      list.push(x)
+    }
   }
-  if (!openParen)
-   return 'Valid expression'
-  else
-    return 'open expression. extra ")"'
 }
-/*console.log(matching('(something)'))
-console.log(matching('something)'))
-console.log(matching('(something'))*/
+let numStack = new Stack()
+numStack.push(6)
+numStack.push(3)
+numStack.push(2)
+numStack.push(5)
+sort(numStack)
+display(numStack)
 
 
 
