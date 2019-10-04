@@ -91,5 +91,5 @@ function drill6(){
   starTrekQ.enqueue('Checkov')
 }
 drill6()
-display(starTrekQ)
+//display(starTrekQ)
 
